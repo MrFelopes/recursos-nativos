@@ -7,6 +7,7 @@ export default function RMGameScreen() {
     const [personagem, setPersonagem] = useState(null);
     const [personagens, setPersonagens] = useState([]);
     const [totalPersonagens, setTotalPersonagens] = useState(1);
+    const [certoOuErrado, setCertoOuErrado] = useState(null);
 
     useEffect(() => {
         fetch('https://rickandmortyapi.com/api/character')
@@ -24,19 +25,22 @@ export default function RMGameScreen() {
             })
     }, [totalPersonagens]);
 
+    function BuscarPerson() {
+        fetch('https://rickandmortyapi.com/api/character/' + returnRandomNumber())
+            .then((response) => response.json())
+            .then((json) => {
+                setPersonagem(json);
+            })
+    }
+
     async function handlePersonagemVivoOuMorto(resposta) {
         const isAlive = personagem.status === 'Alive';
         if (resposta === isAlive) {
-            alert('Você acertou!');
+            setCertoOuErrado('Você acertou!');
         } else {
-            alert('Você errou!');
+            setCertoOuErrado('Você errou!');
         }
-        //alert(isAlive ? 'Você acertou!' : 'Você errou!');
-        // fetch('https://rickandmortyapi.com/api/character/' + returnRandomNumber())
-        //     .then((response) => response.json())
-        //     .then((json) => {
-        //         setPersonagem(json);
-        //     })
+        BuscarPerson();
     }
 
     const returnRandomNumber = () => {
@@ -51,26 +55,33 @@ export default function RMGameScreen() {
 
     return (
         <View style={styles.container}>
+        <View style={{ border: "2px solid black", alignItems: "Center", padding: 15, borderRadius: 10}}>
             <Text style={styles.title}>Rick and Morty Game</Text>
             <Text style={styles.subtitle}>Você sabe se o personagem está vivo?</Text>
             {personagem && (
                 <View>
-                    <Image source={{ uri: personagem.image }} style={{ width: 200, height: 200 }} />
-                    <Text style={{ fontSize: 32, textAlign: "center", marginVertical: 20 }}>
+                    <View style={{alignItems: "center", justifyContent: "center", textAlign: "center",}}>
+                        <Image source={{ uri: personagem.image }} style={{ width: 200, height: 200, marginTop: 20,}} />
+                    </View>
+                    <Text style={{ fontSize: 25, textAlign: "center", marginVertical: 20 }}>
                         O/a personagem {personagem.name} está vivo/a/e?
                     </Text>
-                    <View style={{ flexDirection: "row", gap: 20 }}>
+                    <View style={{ alignItems: "center", flexDirection: "row", justifyContent: "center", textAlign: "center"}}>
+                        <View style={{ alignItems: "center", marginRight: 20}}>
                         <Button
                             mode="contained"
                             onPress={() => handlePersonagemVivoOuMorto(true)}
                         >SIM</Button>
+                        </View>
                         <Button
                             mode="contained"
                             onPress={() => handlePersonagemVivoOuMorto(false)}
                         >NÃO</Button>
+                        <Text style={{alignItems: "center", padding: 20}}>{certoOuErrado}</Text>
                     </View>
                 </View>
             )}
+        </View>
         </View>
     );
 }
