@@ -20,6 +20,16 @@ export default function Home({navigation}){
                 onPress={()=>{navigation.navigate("BatteryInfo")}} 
                 title="Informações da bateria"
             />
+            <Button 
+                mode="contained"
+                onPress={()=>{navigation.navigate("ScreenOrientation")}} 
+                title="Orientação da tela"
+            />
+            <Button 
+                mode="contained"
+                onPress={()=>{navigation.navigate("Notificações")}} 
+                title="Notificações"
+            />
         </View>
     )
 }
