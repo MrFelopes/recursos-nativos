@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 
 export default function Notify({navigation}) {
     const [expoToken, setExpoToken] = useState()
-    const [ nivelBateria, setNivelBateria ] = useState()
-
+    const [nivelBateria, setNivelBateria ] = useState()
     const [ultimaNotificacao, setUltimaNotificacao] = useState(Notifications.useLastNotificationResponse());
+
 
     async function bateria() {
       const nivel = await Battery.getBatteryLevelAsync()
@@ -63,7 +63,7 @@ export default function Notify({navigation}) {
         }, 2000)
         
       }
-    }, [ultimaNotificacao])
+    }, [])
 
     async function exibirAlerta(){
       alert(ultimaNotificacao.notification.request.content.body)

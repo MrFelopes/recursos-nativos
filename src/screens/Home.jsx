@@ -30,6 +30,11 @@ export default function Home({navigation}){
                 onPress={()=>{navigation.navigate("Notificações")}} 
                 title="Notificações"
             />
+            <Button 
+                mode="contained"
+                onPress={()=>{navigation.navigate("Contact")}} 
+                title="Contatos do dispositivo"
+            />
         </View>
     )
 }
