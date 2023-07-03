@@ -6,7 +6,7 @@ import styles from "../utils/styles";
 export default function Home({navigation}){
     return(
         <View style={styles.container}>
-            <Header title="Home"/>
+            <Header title="Home" style={styles.header}/>
             <Text style={styles.content}>
                 Bem-vindo(a)!
             </Text>

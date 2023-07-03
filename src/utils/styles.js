@@ -33,6 +33,20 @@ export const styles = StyleSheet.create({
     marginRight: "auto",
     borderRadius: "999px",
   },
+  header: {
+      backgroundColor: "#B8F5C1",
+      width: "100%",
+      height: "10%",
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: 10,
+      borderWidth: 5,
+      borderColor: "#9BDEB8",
+    },
+    headerTextStyle: {
+      fontWeight: "bold",
+      fontSize: 25,
+    }
 });
 
 export default styles;

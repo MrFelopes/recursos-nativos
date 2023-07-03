@@ -1,13 +1,14 @@
 import { StyleSheet, View } from "react-native";
 import * as Contacts from 'expo-contacts';
-import * as Battery from 'expo-battery';
-import * as Device from 'expo-device';
 import { Button, Text } from "react-native-paper";
 import { useCallback, useEffect, useState } from "react";
-import { Item } from "react-native-paper/lib/typescript/src/components/Drawer/Drawer";
-import { FlatList } from "react-native-web";
+import Items from "../components/Items";
+import { FlatList } from "react-native";
+import Header from "../components/Header";
+import { useFocusEffect } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native";
 
-export default function ContactsInfo({navigation}) {
+export default function ContactInfo({navigation}) {
     const [contacts, setContacts] = useState([{}]);
     async function carregarContatos() {
         const {data} = await Contacts.getContactsAsync({
@@ -16,11 +17,10 @@ export default function ContactsInfo({navigation}) {
                 Contacts.Fields.PhoneNumbers
             ],
         });
-        setContacts(data);
-        console.log(contacts);
+        setContacts(data); 
     }
 
-    useEffect((
+    useFocusEffect(
         useCallback(() => {
             (async () => {
                 const {status} = await Contacts.requestPermissionsAsync();
@@ -28,8 +28,9 @@ export default function ContactsInfo({navigation}) {
                         carregarContatos();
                     }
                 })();
-            }) 
-    ), []);
+            }, []) 
+    );
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -55,23 +56,27 @@ const styles = StyleSheet.create({
 
     return (
         <View style={styles.container}>
-            <Header
-                title="Informações de Contatos"
-            />
+            <Header title="Informações de Contatos" style={styles.header}/>
             <View>
                 {
                     contacts
-                        ? <FlatList
+                        ?
+                            <FlatList
                             style={{flex: 1, gap: 10}}
                             data={contacts}
-                            keyExtractor={(item) => item.id.toString()}
-                            renderItem={({item}) => {
-                                <Item
-                                    item={item}
-                                />
-                            }}
+                            keyExtractor={(item) => item?.id?.toString()}
+                            renderItem={({item}) => (
+                                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+                                    <View>
+                                        <Items
+                                            key={item.id}
+                                            item={item}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+                                    )}
                             />                    
-                        :<></>
+                        : <></>
                 }
             </View>
         </View>

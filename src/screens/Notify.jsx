@@ -13,7 +13,7 @@ export default function Notify({navigation}) {
 
     async function bateria() {
       const nivel = await Battery.getBatteryLevelAsync()
-      setNivelBateria(nivel * 100)
+      setNivelBateria(Math.round(nivel * 100))
     }
 
     useEffect(() => {
@@ -43,12 +43,24 @@ export default function Notify({navigation}) {
         setExpoToken(token);
     };
 
+    async function avaliarDispositivo(){
+        const token = await Notifications.scheduleNotificationAsync({
+            content: {
+                title: "Avalie seu dispositivo",
+                subtitle: "Avaliação",
+                body: "O seu dispositivo "+ Device.modelName + " é excelente.",
+            },
+            trigger: {seconds: 3}
+        });
+        setExpoToken(token);
+    };
+    
     async function notificarBateria(){
         const token = await Notifications.scheduleNotificationAsync({
             content: {
                 title: "Bateria",
                 subtitle: "Nível da bateria",
-                body: "Nível da bateria: "+ nivelBateria,
+                body: "Nível da bateria: "+ nivelBateria + "%",
             },
             trigger: {seconds: 3}
         });
@@ -67,10 +79,6 @@ export default function Notify({navigation}) {
 
     async function exibirAlerta(){
       alert(ultimaNotificacao.notification.request.content.body)
-    };
-
-    async function avaliarDispositivo(){
-      alert("Seu aparelho " + Device.modelName + " é excelente.")
     };
 
     const styles = StyleSheet.create({
@@ -103,10 +111,8 @@ export default function Notify({navigation}) {
             <Text>Expo Token: {expoToken} </Text>
             <Button title="Enviar notificação" onPress={async () => notificarExpo()}>Enviar notificação</Button>
             <Button title="Notificar a bateria" onPress={async () => notificarBateria()}>Notificar Bateria</Button>
-            <Button title="Ver última notificação" onPress={async () => exibirAlerta()}>Ver última notificação</Button>
             <Button title="Ir à página de dispositivo" onPress={() => {navigation.navigate("DeviceInfo")}}>Ir à página de dispositivo</Button>
             <Button title="Avalie seu dispositivo" onPress={async () => avaliarDispositivo()}>Avalie seu dispositivo</Button>
-            <Button title="Notificação de retorno" onPress={async () => notifRetorno()}>Notificação de retorno</Button>
         </View>
     );
 
