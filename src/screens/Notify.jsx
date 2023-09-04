@@ -2,13 +2,16 @@ import { StyleSheet, View } from "react-native";
 import * as Notifications from 'expo-notifications';
 import * as Battery from 'expo-battery';
 import * as Device from 'expo-device';
-import { Button, Text } from "react-native-paper";
+import { Button, Text, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
 
 export default function Notify({navigation}) {
     const [expoToken, setExpoToken] = useState()
     const [nivelBateria, setNivelBateria ] = useState()
     const [ultimaNotificacao, setUltimaNotificacao] = useState(Notifications.useLastNotificationResponse());
+    const [horaNotificacao, setHoraNotificacao] = useState(1)
+    const [tituloNotificacao, setTituloNotificacao] = useState()
+    const [mensagemNotificacao, setMensagemNotificacao] = useState()
 
 
     async function bateria() {
@@ -26,17 +29,6 @@ export default function Notify({navigation}) {
                 title: "Poggers",
                 subtitle: "pog",
                 body: "PogChamp",
-            },
-            trigger : {seconds: 3}
-        })
-        setExpoToken(token);
-    };
-
-    async function notifRetorno(){
-        const token = await Notifications.scheduleNotificationAsync({
-            content: {
-                title: "Página de dispositivo",
-                body: "Visite a página de dispositivo",
             },
             trigger : {seconds: 3}
         })
@@ -113,6 +105,40 @@ export default function Notify({navigation}) {
             <Button title="Notificar a bateria" onPress={async () => notificarBateria()}>Notificar Bateria</Button>
             <Button title="Ir à página de dispositivo" onPress={() => {navigation.navigate("DeviceInfo")}}>Ir à página de dispositivo</Button>
             <Button title="Avalie seu dispositivo" onPress={async () => avaliarDispositivo()}>Avalie seu dispositivo</Button>
+            
+            <Text>Quantos segundos para a notificação?</Text>
+            <TextInput
+                label="Segundos da notificação"
+                value={horaNotificacao}
+                onChangeText={text => setHoraNotificacao(text)}
+                inputMode="numeric"
+                keyboardType="numeric"
+            />
+
+            <Text>Qual é o título da sua notificação?</Text>
+            <TextInput 
+                label="Título da notificação"
+                value={tituloNotificacao}
+                onChangeText={text => setTituloNotificacao(text)}
+            />
+
+            <Text>Qual é o título da sua notificação?</Text>
+            <TextInput 
+                label="Mensagem da notificação"
+                value={mensagemNotificacao}
+                onChangeText={text => setMensagemNotificacao(text)}
+            />
+            <Button title="Enviar notificação personalizada" onPress={async () => {
+                const token = await Notifications.scheduleNotificationAsync({
+                    content: {
+                        title: tituloNotificacao,
+                        subtitle: "Notificação personalizada",
+                        body: mensagemNotificacao,
+                    },
+                    trigger: {seconds: parseInt(horaNotificacao)}
+                });
+                setExpoToken(token);
+            }}>Enviar notificação personalizada</Button>          
         </View>
     );
 

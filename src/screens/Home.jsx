@@ -35,6 +35,21 @@ export default function Home({navigation}){
                 onPress={()=>{navigation.navigate("Contact")}} 
                 title="Contatos do dispositivo"
             />
+            <Button 
+                mode="contained"
+                onPress={()=>{navigation.navigate("Video")}} 
+                title="Vídeo especial"
+            />
+            <Button 
+                mode="contained"
+                onPress={()=>{navigation.navigate("Sensores")}} 
+                title="Sensores"
+            />
+            <Button 
+                mode="contained"
+                onPress={()=>{navigation.navigate("ScreenCapture")}} 
+                title="Captura de tela"
+            />
         </View>
     )
 }

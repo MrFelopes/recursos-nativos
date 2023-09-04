@@ -27,9 +27,9 @@ async function DeitarEsquerda() {
 export default function ScreenOrientations() {
   return (
     <View style={styles.container}>
-      <Header />
+      <Header title="Orientação"/>
       <View style={styles.content}>
-        <Text style={styles.contentTextStyle}>Orientação da tela</Text>
+        <Text style={{alignSelf: "center", textAlign: "center", fontSize: 20, fontWeight: "bold", padding: 20}}>Orientação da tela</Text>
         <Button title="Padrão" onPress={padrao} />
         <Button title="Para Baixo" onPress={ParaBaixo} />
         <Button title="Deitar para a direita" onPress={DeitarDireita} />

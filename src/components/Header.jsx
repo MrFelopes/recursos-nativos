@@ -3,26 +3,27 @@ import * as Battery from 'expo-battery';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-const styles = StyleSheet.create({
-    header: {
-        paddingTop: 30,
-        backgroundColor: "#606",
-        paddingBottom: 5,
-        paddingHorizontal: 5,
-    },
-    headerTextStyle: {
-        marginTop: 10,
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 35,
-        textAlign: 'center'
-    },
-});
 
 export default function Header({ title }) {
-
-    const [ nivelBateria, setNivelBateria ] = useState()
-    const [background, setBackground] = useState()
+  const [background, setBackground] = useState()
+  const styles = StyleSheet.create({
+      header: {
+          paddingTop: 30,
+          backgroundColor: "#606",
+          paddingBottom: 5,
+          paddingHorizontal: 5,
+          alignItems: 'center',
+      },
+      headerTextStyle: {
+          marginTop: 10,
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: 35,
+          alignContent: 'center',
+          backgroundColor: background,
+      },
+  });
+    const [nivelBateria, setNivelBateria ] = useState()
   
     const mudarCor = () => {
       if(nivelBateria <= 4) {
@@ -44,10 +45,10 @@ export default function Header({ title }) {
       useEffect(() => {
         bateria()
         mudarCor()
-      }, [{nivelBateria}]);
+      }, [nivelBateria]);
 return (
     <View style={styles.header}>
-        <Text style={{backgroundColor: background}}>
+        <Text style={styles.headerTextStyle}>
             {title}
         </Text>
     </View>

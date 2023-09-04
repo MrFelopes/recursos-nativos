@@ -36,6 +36,7 @@ export default function BatteryInfo({navigation}) {
         padding: 20,
         alignSelf: 'center',
         fontSize: 30,
+        fontWeight: 'bold',
     },
     contentTextStyle: {
         padding: 5,
@@ -44,6 +45,19 @@ export default function BatteryInfo({navigation}) {
         fontWeight: 'bold',
         fontSize: 18,
         textAlign: 'center'
+    },
+
+    containerbattery: {
+      flex: 1,
+      backgroundColor: background,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+
+    textbattery: {
+      fontWeight: "bold",
+      fontSize: 25,
+      padding: 5,
     },
   });
   
@@ -54,7 +68,7 @@ export default function BatteryInfo({navigation}) {
 
   async function bateria() {
     const nivel = await Battery.getBatteryLevelAsync()
-    setNivelBateria(nivel * 100)
+    setNivelBateria (Math.round(nivel * 100))
   }
 
   useEffect(() => {
@@ -73,8 +87,8 @@ export default function BatteryInfo({navigation}) {
           <Text style={styles.content}> 
             { nivelBateria }%
           </Text>
-          <View style={{backgroundColor: background, width:800, height:50}}>
-            <Text style={{}}>{textoBateria}</Text>
+          <View style={styles.containerbattery}>
+            <Text style={styles.textbattery}>{textoBateria}</Text>
           </View>
           <Button title="Atualizar" onPress={atualizarTudo}/>
 

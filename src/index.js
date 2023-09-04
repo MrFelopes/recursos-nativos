@@ -2,11 +2,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import BatteryInfo from "./screens/BatteryInfo";
 import DeviceInfo from "./screens/DeviceInfo";
-import ScreenOrientation from "./screens/ScreenOrientation";
 import { NavigationContainer } from "@react-navigation/native";
 import ScreenOrientations from "./screens/ScreenOrientation";
 import Notify from "./screens/Notify";
 import ContactInfo from "./screens/ContactInfo";
+import VideoEspecial from "./screens/Video";
+import Sensors from "./screens/Sensors";
+import ScreenCap from "./screens/ScreenCapture";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +45,21 @@ export default function RootNavigation({navigation}) {
             name="Contact" 
             component={ContactInfo} 
             options={{ title: "Contacts Info" }}
+        />
+        <Stack.Screen 
+            name="Video" 
+            component={VideoEspecial} 
+            options={{ title: "Vídeo especial" }}
+        />
+        <Stack.Screen 
+            name="Sensores" 
+            component={Sensors} 
+            options={{ title: "Sensores" }}
+        />
+        <Stack.Screen 
+            name="ScreenCapture" 
+            component={ScreenCap} 
+            options={{ title: "Captura de tela" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
