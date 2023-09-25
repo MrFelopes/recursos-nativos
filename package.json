@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --lan",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -40,10 +40,13 @@
     "react-native-youtube-iframe": "^2.3.0",
     "expo-sensors": "~12.1.1",
     "expo-screen-capture": "~5.1.1",
-    "expo-media-library": "~15.2.3"
+    "expo-media-library": "~15.2.3",
+    "expo-local-authentication": "~13.3.0",
+    "expo-camera": "~13.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@expo/ngrok": "^4.1.0"
   },
   "private": true
 }

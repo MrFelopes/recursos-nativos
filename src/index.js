@@ -9,6 +9,7 @@ import ContactInfo from "./screens/ContactInfo";
 import VideoEspecial from "./screens/Video";
 import Sensors from "./screens/Sensors";
 import ScreenCap from "./screens/ScreenCapture";
+import LocalAuthentificator from "./screens/LocalAuth";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,11 @@ export default function RootNavigation({navigation}) {
             name="ScreenCapture" 
             component={ScreenCap} 
             options={{ title: "Captura de tela" }}
+        />
+        <Stack.Screen 
+            name="LocalAuth" 
+            component={LocalAuthentificator} 
+            options={{ title: "Autenticação" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

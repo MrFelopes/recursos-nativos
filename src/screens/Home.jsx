@@ -50,6 +50,11 @@ export default function Home({navigation}){
                 onPress={()=>{navigation.navigate("ScreenCapture")}} 
                 title="Captura de tela"
             />
+            <Button 
+                mode="contained"
+                onPress={()=>{navigation.navigate("LocalAuth")}} 
+                title="Autenticação"
+            />
         </View>
     )
 }
